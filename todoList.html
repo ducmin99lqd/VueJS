@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="todoList.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+
+        .item1 {
+            grid-area: left;
+        }
+
+        .item2 {
+            grid-area: right;
+            overflow: scroll;
+        }
+
+        .grid-container {
+            height: 400px;
+            opacity: 0.8;
+            display: grid;
+            grid-template-areas:
+                'left left right right right right'
+                'left left right right right right'
+                'left left right right right right';
+            grid-gap: 4px;
+            background-color: #2196F3;
+            padding: 4px;
+        }
+
+        .grid-container>div {
+            background-color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="grid-container" id="app">
+        <div class="item1">
+            <label> Detail </label>
+            <br>
+            <div class="image-upload">
+                <label for="file-input">
+                    <img src="t1.jpg" style="pointer-events: none" />
+                </label>
+            </div>
+
+            <!-- upload file demo-->
+
+            <!-- form detail-->
+            <br>
+            <label><img src="user.png"></label><input type="text" v-model="name">
+            <br>
+            <label><img src="phone-call.png"></label><input type="text" v-model="phone">
+            <br>
+            <!--end form-->
+            <img src="plus.png" @click="storeTodo"/>
+        </div>
+        <div class="item2">
+            <div v-if="check">
+                <label>List</label>
+                <br>
+                <!-- search  -->
+                <input type="text" placeholder="search" v-model="resultSearch" @input="doThat">
+              
+                <!-- end search-->
+                <ul>
+                    <li v-for="(contact,index) in contacts">
+                        <p> <img src="us.png"> {{contact.name}} | <img src="us2.png" alt=""> {{contact.phone}} | <img
+                                src="edit.png" @click="editItem(index,contact)">------<img src="delete.png"
+                                @click="removeItem(index)"></p>
+                    </li>
+                </ul>
+            </div>
+            <div v-else>
+                <label>Update</label>
+                <br>
+                <label>Name</label>
+                <input type="text" v-model="updateContact.name">
+                <br>
+                <label>Phone</label>
+                <input type="text" v-model="updateContact.phone">
+                <br>
+                <img src="plus.png" @click="updateItem(updateContact.name,updateContact.phone)"/>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+<script src="todoList.js"></script>
+
+</html>
